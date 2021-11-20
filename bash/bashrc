@@ -112,5 +112,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-sudo bash /home/pi/sh/bash/pants.sh
-sudo bash /home/pi/sh/bash/pants.sh
+sudo bash /home/pi/sh/pants.sh
