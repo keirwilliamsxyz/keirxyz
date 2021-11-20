@@ -1,0 +1,45 @@
+[Unit]
+Description=RClone mount of users remote %i using filesystem permissions
+Documentation=http://rclone.org/docs/
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/rclone mount \
+        --config="/home/pi/.config/rclone/rclone.conf" \
+        --allow-other \
+        --gid=1000 \
+        --uid=1000 \
+        --umask=002 \
+        --dir-cache-time 720h \
+        --log-level INFO \
+        --poll-interval 15s \
+        --cache-dir=/mnt/ssd/cache/gm \
+        --vfs-cache-mode=full \
+        --vfs-cache-max-age=72h \
+        --vfs-cache-max-size=70G \
+        --exclude=media/bk/** \
+        --exclude=media/cm/** \
+        --exclude=media/gm/** \
+        --exclude=media/im/** \
+        --exclude=media/ob/** \
+        --exclude=media/sft/** \
+	--exclude=backup/** \
+	--exclude=cache/** \
+	--exclude=cf/** \
+	--exclude=nzb/** \
+	--exclude=tor/** \
+        gm: /mnt/gm
+
+#Execute Post Mount Script if specified
+#ExecStartPost=/bin/sh -c "echo docker restart plex"
+
+#Unmount rclone fs
+ExecStop=/bin/fusermount -u /mnt/gm
+
+#Restart info
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+RequiredBy=docker.service
