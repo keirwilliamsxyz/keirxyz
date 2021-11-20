@@ -1,0 +1,17 @@
+---
+version: "2.1"
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr
+    container_name: rad
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - UMASK=002
+    volumes:
+      - /home/pi/dk/cf/rad:/config
+      - /mnt/ssd:/av
+    ports:
+      - 7878:7878
+    restart: unless-stopped

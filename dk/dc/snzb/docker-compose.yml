@@ -1,0 +1,18 @@
+---
+version: "2.1"
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd
+    container_name: snzb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - UMASK=002
+    volumes:
+      - /home/pi/df/cf/rad:/config
+      - /mnt/ssd/nzb:/av/nzb
+    ports:
+      - 8080:8080
+      - 9090:9090
+    restart: unless-stopped

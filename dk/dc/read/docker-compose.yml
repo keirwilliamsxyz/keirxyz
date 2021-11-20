@@ -1,0 +1,16 @@
+---
+version: "2.1"
+services:
+  readarr:
+    image:  hotio/readarr
+    container_name: read
+    environment:
+      - PUID=1392013993
+      - PGID=763819928
+      - TZ=Europe/London
+    volumes:
+        - /Users/kw17669/dk/read:/config
+        - /Users/kw17669/dk:/av
+    ports:
+      - 8787:8787
+    restart: unless-stopped
